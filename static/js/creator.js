@@ -124,8 +124,10 @@ const charCount = document.getElementById('charCount');
 const charFill = document.getElementById('charFill');
 const toggleCustomization = document.getElementById('toggleCustomization');
 const customizationOptions = document.getElementById('customizationOptions');
-const previewMessage = document.getElementById('previewMessage');
-const previewContainer = document.getElementById('previewContainer');
+const previewBtn = document.getElementById('previewBtn');
+const previewModal = document.getElementById('previewModal');
+const previewMessageOverlay = document.getElementById('previewMessageOverlay');
+const previewContainerOverlay = document.getElementById('previewContainerOverlay');
 const successModal = document.getElementById('successModal');
 const shareLink = document.getElementById('shareLink');
 const createBtn = document.getElementById('createBtn');
@@ -261,7 +263,6 @@ messageText.addEventListener('input', () => {
     const percentage = (length / 500) * 100;
     charCount.textContent = `${length}/500`;
     charFill.style.width = percentage + '%';
-    updatePreview();
     
     // Check for love words and trigger confetti
     const now = Date.now();
@@ -300,16 +301,18 @@ toggleCustomization.addEventListener('click', (e) => {
     }
 });
 
-// ==================== LIVE PREVIEW ====================
-function updatePreview() {
+// ==================== PREVIEW OVERLAY ====================
+function updatePreviewOverlay() {
     if (!messageText.value) {
-        previewMessage.innerHTML = '<p class="preview-message-empty">Your message will appear here...</p>';
+        previewMessageOverlay.innerHTML = '<p class="preview-message-empty">Your message will appear here...</p>';
         return;
     }
 
     const fontSize = inputs.fontSize.value;
     const fontFamily = inputs.fontFamily.value;
     const primaryColor = inputs.primaryColor.value;
+    const secondaryColor = inputs.secondaryColor.value;
+    const bgColor = inputs.backgroundColor.value;
     const emojis = inputs.emojis.value.split(',').map(e => e.trim()).join(' ');
     const effectType = inputs.effectType.value;
 
@@ -332,23 +335,32 @@ function updatePreview() {
         textStyle += `text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);`;
     }
 
-    previewMessage.innerHTML = `
+    previewMessageOverlay.innerHTML = `
         <p style="${textStyle}">${messageText.value}</p>
         <div style="font-size: 30px; animation: float 3s ease-in-out infinite;">${emojis}</div>
     `;
 
     // Update background
-    const bgColor = inputs.backgroundColor.value;
-    const secondaryColor = inputs.secondaryColor.value;
-    previewContainer.style.background = `linear-gradient(135deg, ${bgColor}, ${secondaryColor}30)`;
+    previewContainerOverlay.style.background = `linear-gradient(135deg, ${bgColor}, ${secondaryColor}30)`;
 }
 
-// Update preview on customization changes
-Object.values(inputs).forEach(input => {
-    input.addEventListener('change', updatePreview);
-    input.addEventListener('input', updatePreview);
-    input.addEventListener('focus', () => playHaptic('light'));
-});
+function openPreviewModal() {
+    updatePreviewOverlay();
+    previewModal.classList.add('active');
+    playHaptic('medium');
+    playSound('click');
+}
+
+function closePreviewModal() {
+    previewModal.classList.remove('active');
+}
+
+if (previewBtn) {
+    previewBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        openPreviewModal();
+    });
+}
 
 // ==================== FORM SUBMISSION ====================
 messageForm.addEventListener('submit', async (e) => {
@@ -386,6 +398,7 @@ messageForm.addEventListener('submit', async (e) => {
                 fontFamily: inputs.fontFamily.value,
                 fontSize: parseInt(inputs.fontSize.value),
                 backgroundEffect: inputs.backgroundEffect.value,
+                effectType: inputs.effectType.value,
             }),
         });
 
@@ -405,7 +418,6 @@ messageForm.addEventListener('submit', async (e) => {
         messageForm.reset();
         charCount.textContent = '0/500';
         charFill.style.width = '0%';
-        updatePreview();
         customizationOptions.classList.remove('active');
         toggleCustomization.classList.remove('active');
 
@@ -462,6 +474,9 @@ window.addEventListener('click', (e) => {
     if (e.target === successModal) {
         closeModal();
     }
+    if (e.target === previewModal) {
+        closePreviewModal();
+    }
 });
 
 // ==================== KEYBOARD SHORTCUTS ====================
@@ -473,9 +488,6 @@ document.addEventListener('keydown', (e) => {
         }
     }
 });
-
-// ==================== INITIAL PREVIEW ====================
-updatePreview();
 
 // ==================== ACCESSIBILITY & UX ====================
 document.addEventListener('DOMContentLoaded', () => {

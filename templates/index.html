@@ -162,29 +162,39 @@
                         </div>
                     </div>
 
-                    <!-- Submit Button -->
-                    <button type="submit" class="btn btn-primary" id="createBtn">
-                        Create & Share 🚀
-                    </button>
-                </form>
-            </section>
-
-            <!-- Preview Panel -->
-            <section class="panel preview-panel">
-                <div class="panel-header">
-                    <span class="panel-header-icon">👀</span>
-                    <h2>Preview</h2>
-                </div>
-                <div class="preview-container" id="previewContainer">
-                    <div class="preview-message" id="previewMessage">
-                        <p class="preview-message-empty">Your message will appear here...</p>
+                    <!-- Action Buttons -->
+                    <div class="button-group">
+                        <button type="button" class="btn btn-secondary" id="previewBtn">
+                            👀 Preview
+                        </button>
+                        <button type="submit" class="btn btn-primary" id="createBtn">
+                            Create & Share 🚀
+                        </button>
                     </div>
-                </div>
+                </form>
             </section>
         </div>
     </div>
 
     <!-- Success Modal -->
+        <!-- Preview Modal Overlay -->
+        <div class="modal" id="previewModal">
+            <div class="modal-content preview-modal-content">
+                <button type="button" class="modal-close" onclick="closePreviewModal()">✕</button>
+            
+                <h2 class="modal-title">👀 Message Preview</h2>
+            
+                <div class="preview-container-overlay" id="previewContainerOverlay">
+                    <div class="preview-message-overlay" id="previewMessageOverlay">
+                        <p class="preview-message-empty">Loading preview...</p>
+                    </div>
+                </div>
+            
+                <p class="preview-footer">This is how your message will look when shared ✨</p>
+            </div>
+        </div>
+
+        <!-- Success Modal -->
     <div class="modal" id="successModal">
         <div class="modal-content">
             <button type="button" class="modal-close" onclick="closeModal()">✕</button>
