@@ -311,7 +311,32 @@ body {
 
 .main-content { display: grid; grid-template-columns: 1fr; gap: var(--spacing-lg); align-items: start; }
 
-.button-group {
+/* ...existing code... */
+.footer {
+    width: 100%;
+    background: #f8f8f8;
+    color: #333;
+    text-align: center;
+    padding: 16px 0 8px 0;
+    font-size: 1rem;
+    border-top: 1px solid #e0e0e0;
+    margin-top: 32px;
+}
+.branding {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+.brand-logo {
+    font-weight: bold;
+    font-size: 1.1em;
+    letter-spacing: 1px;
+}
+.copyright {
+    font-size: 0.95em;
+    color: #666;
+}
     display: flex;
     gap: var(--spacing-md);
     width: 100%;
