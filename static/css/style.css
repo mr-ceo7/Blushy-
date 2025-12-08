@@ -133,6 +133,10 @@ body {
     }
 .header, .panel, .btn, .modal-content {
     transition: background 0.6s ease-out, border-color 0.6s ease-out, box-shadow 0.6s ease-out !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 ::-webkit-scrollbar { width: 8px; }
@@ -278,17 +282,36 @@ body {
     }
 }
 
-.main-content { display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-lg); align-items: start; }
+.main-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-lg);
+    margin-top: var(--spacing-lg);
+}
 
 @media (max-width: 1200px) {
     .main-content { gap: var(--spacing-md); }
 }
 
-@media (max-width: 768px) { .main-content { grid-template-columns: 1fr; gap: var(--spacing-xl); } }
+@media (max-width: 768px) {
+    .main-content {
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: var(--spacing-xl);
+    }
+}
 
 @media (max-width: 640px) {
     .main-content {
-        grid-template-columns: 1fr;
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
         gap: var(--spacing-lg);
     }
 }
@@ -309,7 +332,15 @@ body {
         border-radius: var(--radius-lg);
     }
 
-.main-content { display: grid; grid-template-columns: 1fr; gap: var(--spacing-lg); align-items: start; }
+.main-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-lg);
+    margin-top: var(--spacing-lg);
+}
 
 /* ...existing code... */
 .footer {
@@ -321,11 +352,16 @@ body {
     font-size: 1rem;
     border-top: 1px solid #e0e0e0;
     margin-top: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 .branding {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 4px;
 }
 .brand-logo {
