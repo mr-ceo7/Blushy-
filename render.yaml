@@ -8,3 +8,10 @@ services:
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.9
+      - fromDatabase:
+          name: blushy-db
+          property: connectionString
+
+databases:
+  - name: blushy-db
+    plan: free
