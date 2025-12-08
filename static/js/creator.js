@@ -201,12 +201,76 @@ function showToast(message, duration = 3000) {
 }
 
 // ==================== CHARACTER COUNT ====================
+const romanticWords = [
+    'love', 'beloved', 'sweetheart', 'darling', 'honey', 'babe', 'cute', 'beautiful', 'handsome',
+    'gorgeous', 'crush', 'adore', 'romance', 'romantic', 'kiss', 'hug', 'cuddle', 'heart',
+    'valentine', 'forever', 'always', 'together', 'soulmate', 'destiny', 'passion', 'affection',
+    'amour', 'enchanted', 'dreamy', 'divine', 'angel', 'precious', 'treasure', 'care', 'adoration',
+    'infatuation', 'tenderness', 'devoted', 'intimate', 'sentimental', 'yearning', 'admire',
+    'enamored', 'besotted', 'lovestruck', 'cherish', 'fond', 'doting', 'captivated', 'enchant',
+    'fascinated', 'mesmerized', 'attracted', 'allure', 'charm', 'captivate', 'devotion',
+    'bond', 'connection', 'intimate', 'affectionate', 'caring', 'compassionate', 'tender'
+];
+
+function createLoveConfetti() {
+    const loveEmojis = ['❤️', '💕', '💖', '💗', '💝', '✨', '💫', '🌹', '😍', '💌'];
+    
+    for (let i = 0; i < 8; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'love-confetti';
+        confetti.textContent = loveEmojis[Math.floor(Math.random() * loveEmojis.length)];
+        confetti.style.left = Math.random() * 100 + '%';
+        confetti.style.top = '-20px';
+        confetti.style.position = 'absolute';
+        confetti.style.fontSize = (Math.random() * 1.5 + 1) + 'rem';
+        confetti.style.opacity = '1';
+        confetti.style.pointerEvents = 'none';
+        confetti.style.animation = `fallConfetti ${Math.random() * 1 + 2}s ease-in forwards`;
+        confetti.style.zIndex = '100';
+        
+        // Append to a container near the textarea
+        const container = messageText.parentElement;
+        container.style.position = 'relative';
+        container.style.overflow = 'visible';
+        container.appendChild(confetti);
+        
+        setTimeout(() => confetti.remove(), 3000);
+    }
+}
+
+function checkForLoveWords(text) {
+    const lowerText = text.toLowerCase();
+    const words = lowerText.split(/\s+/);
+    
+    for (let word of words) {
+        // Remove punctuation for matching
+        const cleanWord = word.replace(/[^a-z]/g, '');
+        
+        if (romanticWords.includes(cleanWord)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+let lastLoveConfettiTime = 0;
+
 messageText.addEventListener('input', () => {
     const length = messageText.value.length;
     const percentage = (length / 500) * 100;
     charCount.textContent = `${length}/500`;
     charFill.style.width = percentage + '%';
     updatePreview();
+    
+    // Check for love words and trigger confetti
+    const now = Date.now();
+    if (now - lastLoveConfettiTime > 800) { // Throttle to once per 800ms
+        if (checkForLoveWords(messageText.value)) {
+            createLoveConfetti();
+            playHaptic('light');
+            lastLoveConfettiTime = now;
+        }
+    }
 });
 
 // ==================== FORM INTERACTIONS ====================
