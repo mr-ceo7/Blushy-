@@ -14,3 +14,9 @@ Press CTRL+C to quit
 127.0.0.1 - - [08/Dec/2025 23:04:53] "GET /favicon.ico HTTP/1.1" 404 -
 127.0.0.1 - - [08/Dec/2025 23:05:36] "POST /api/messages HTTP/1.1" 201 -
 127.0.0.1 - - [08/Dec/2025 23:05:47] "GET /m/aN6e5F9v HTTP/1.1" 200 -
+127.0.0.1 - - [08/Dec/2025 23:08:17] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [08/Dec/2025 23:08:17] "GET /static/css/style.css HTTP/1.1" 304 -
+127.0.0.1 - - [08/Dec/2025 23:08:17] "GET /static/js/creator.js HTTP/1.1" 304 -
+127.0.0.1 - - [09/Dec/2025 00:04:18] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:04:18] "GET /static/js/creator.js HTTP/1.1" 304 -
+127.0.0.1 - - [09/Dec/2025 00:04:18] "GET /static/css/style.css HTTP/1.1" 304 -
