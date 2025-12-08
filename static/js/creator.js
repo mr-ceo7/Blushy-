@@ -87,11 +87,34 @@ function applyRandomTheme() {
     root.style.setProperty('--gradient-secondary', `linear-gradient(135deg, ${theme.tertiary} 0%, ${theme.primary} 100%)`);
     root.style.setProperty('--shadow-glow', `0 0 20px ${theme.primary}40`);
     
+    // Update theme badge
+    setTimeout(() => {
+        const themeBadge = document.getElementById('themeBadge');
+        if (themeBadge) {
+            themeBadge.textContent = `🎨 ${theme.name}`;
+            themeBadge.title = 'Click to change theme';
+            themeBadge.style.cursor = 'pointer';
+        }
+    }, 100);
+    
     console.log(`🎨 Theme applied: ${theme.name}`);
+    return theme;
 }
 
 // Apply theme on page load
-applyRandomTheme();
+const currentTheme = applyRandomTheme();
+
+// Add click handler to theme badge for manual theme changes
+document.addEventListener('DOMContentLoaded', () => {
+    const themeBadge = document.getElementById('themeBadge');
+    if (themeBadge) {
+        themeBadge.addEventListener('click', () => {
+            playHaptic('light');
+            playSound('click');
+            applyRandomTheme();
+        });
+    }
+});
 
 // ==================== DOM ELEMENTS ====================
 const messageForm = document.getElementById('messageForm');
