@@ -1,2 +1,4 @@
 *.pyc
 instance/blushy.db
+sql.log
+fallback.db
