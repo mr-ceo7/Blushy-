@@ -87,6 +87,16 @@ function applyRandomTheme() {
     root.style.setProperty('--gradient-secondary', `linear-gradient(135deg, ${theme.tertiary} 0%, ${theme.primary} 100%)`);
     root.style.setProperty('--shadow-glow', `0 0 20px ${theme.primary}40`);
     
+    // Update logo with theme color
+    const logo = document.querySelector('.logo-img');
+    if (logo) {
+        // Use drop-shadow with theme color for color effect
+        const color = theme.primary;
+        const brightness = getBrightnessForColor(color);
+        logo.style.filter = `brightness(${brightness}) drop-shadow(0 0 0 ${color})`;
+        logo.style.opacity = '1';
+    }
+    
     // Update theme badge
     setTimeout(() => {
         const themeBadge = document.getElementById('themeBadge');
@@ -99,6 +109,22 @@ function applyRandomTheme() {
     
     console.log(`🎨 Theme applied: ${theme.name}`);
     return theme;
+}
+
+// Calculate brightness adjustment based on color luminance
+function getBrightnessForColor(hex) {
+    const rgb = hexToRgb(hex);
+    const luminance = (0.299 * rgb.r + 0.587 * rgb.g + 0.114 * rgb.b) / 255;
+    // Return brightness value that will make the logo visible
+    return luminance > 0.5 ? 0.85 : 1.0;
+}
+
+// Convert hex to RGB
+function hexToRgb(hex) {
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
+    return { r, g, b };
 }
 
 // Apply theme on page load
