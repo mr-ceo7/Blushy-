@@ -3,11 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Blushy - Create beautiful, animated messages and share them instantly">
-    <title>Blushy🤭</title>
+    <meta name="description" content="Blushy - Create beautiful, animated love messages with dynamic themes and share them instantly. Express your feelings with personalized, customized messages.">
+    <meta name="keywords" content="love messages, animated messages, personalized greetings, romantic messages, message creator, dynamic themes">
+    <meta name="author" content="Galvaniy Technologies">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Blushy 🤭 - Create Beautiful Animated Messages">
+    <meta property="og:description" content="Create and share personalized animated messages with dynamic themes. Perfect for expressing love and special moments.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.base_url }}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Blushy - Create Beautiful Messages">
+    <meta name="twitter:description" content="Create personalized animated messages and share them instantly">
+    <meta name="theme-color" content="#ff6b9d">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Blushy 🤭 - Create Beautiful Animated Messages & Share Love</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="canonical" href="{{ request.base_url.rstrip('/') }}">
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='logo.png') }}">
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Blushy",
+      "description": "Create beautiful, animated personalized messages with dynamic themes",
+      "url": "{{ request.base_url.rstrip('/') }}",
+      "applicationCategory": "Utilities",
+      "author": {
+        "@type": "Organization",
+        "name": "Galvaniy Technologies"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "image": "{{ url_for('static', filename='logo.png', _external=True) }}"
+    }
+    </script>
 </head>
 <body>
     <div class="container">

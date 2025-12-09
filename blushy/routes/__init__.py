@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify, render_template
+from flask import Blueprint, request, jsonify, render_template, send_from_directory
 from blushy.models import db, Message
 from blushy.utils import validate_message_data, get_or_404_message
 
@@ -70,6 +70,16 @@ def index():
     """Home page with message creator"""
     return render_template('index.html')
 
+@pages_bp.route('/sitemap.xml')
+def sitemap():
+    """Sitemap for search engines"""
+    return render_template('sitemap.xml'), 200, {'Content-Type': 'application/xml'}
+
+@pages_bp.route('/robots.txt')
+def robots():
+    """Robots.txt for search engine crawlers"""
+    return send_from_directory('static', 'robots.txt')
+
 @pages_bp.route('/m/<link_id>')
 def view_message(link_id):
     """View a message with animations"""
@@ -77,7 +87,7 @@ def view_message(link_id):
     
     if error:
         return render_template('error.html', 
-                             error=error[0]['error'], 
+                             error=error[0]['error'],
                              code=error[1]), error[1]
     
     return render_template('viewer.html', message=message)

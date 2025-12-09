@@ -3,8 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A beautiful personalized message created with Blushy - Check out this animated message with dynamic theme!">
+    <meta name="robots" content="noindex, follow">
     <title>Message for {{ message.target_name }} from Blushy 🤭</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link rel="canonical" href="{{ request.base_url.rstrip('/') }}">
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Message",
+      "text": "{{ message.text }}",
+      "recipient": "{{ message.target_name }}",
+      "dateCreated": "{{ message.created_at.isoformat() }}",
+      "author": {
+        "@type": "Organization",
+        "name": "Blushy"
+      }
+    }
+    </script>
     <style>
         * {
             margin: 0;
